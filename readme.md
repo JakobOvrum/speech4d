@@ -26,8 +26,8 @@ Documentation
 ---------------------------------------------------------
 Documentation for the wrapper libraries is coming soon.
 
-Documentation for the [Windows Speech API](http://msdn.microsoft.com/en-us/library/ms723627(v=vs.85).aspx) and the [eSpeak API](http://espeak.sourceforge.net/speak_lib.h) can be found at their respective websites.
+Documentation for the [Windows Speech API](http://msdn.microsoft.com/en-us/library/ms723627.aspx) and the [eSpeak API](http://espeak.sourceforge.net/speak_lib.h) can be found at their respective websites.
 
 License
 ---------------------------------------------------------
-*speech4d* is licensed under the terms of the MIT license (see the LICENSE.txt file for details).
+*speech4d* is licensed under the terms of the MIT license (see the [LICENSE.txt](https://github.com/JakobOvrum/speech4d/blob/master/LICENSE.txt) file for details).
