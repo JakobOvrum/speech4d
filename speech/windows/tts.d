@@ -7,8 +7,6 @@ import std.c.windows.com;
 import speech.windows.sapi;
 import speech.windows.comref;
 
-import std.stdio;
-
 struct Voice
 {
 	private:
@@ -23,7 +21,6 @@ struct Voice
 	void speakz(in wchar* text)
 	{
 		auto hr = voice.Speak(text, 0, null);
-		writeln("speak result: ", hr);
 	}
 }
 

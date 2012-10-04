@@ -26,8 +26,6 @@ void coEnforce(HRESULT result, string fn = __FILE__, size_t ln = __LINE__)
 // RPC_E_CHANGED_MODE.
 private bool shouldUninitialize = true;
 
-import std.stdio;
-
 struct CoReference(T : IUnknown)
 {
 	private:
@@ -52,22 +50,17 @@ struct CoReference(T : IUnknown)
 		shouldUninitialize = hr != RPC_E_CHANGED_MODE;
 
 		coEnforce(CoCreateInstance(clsid, null, CLSCTX_ALL, iid, cast(void**)&CoReference_object));
-
-		writefln("[%s] %s initialized, shouldUninitialize: %s", cast(void*)CoReference_object, T.stringof, shouldUninitialize);
 	}
 
 	this(this)
 	{
 		AddRef();
-		writefln("[%s] copied", cast(void*)CoReference_object);
 	}
 
 	~this()
 	{
-		writefln("[%s] releasing", cast(void*)CoReference_object);
 		if(Release() == 0)
 		{
-			writefln("[%s] reference is 0", cast(void*)CoReference_object);
 			CoReference_object = null;
 			if(shouldUninitialize)
 				CoUninitialize();
