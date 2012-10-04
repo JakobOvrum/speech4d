@@ -1,8 +1,5 @@
 # Library Output
 /lib
 
-# Example Binaries
-/test
-
 # Visual Studio
 *.suo

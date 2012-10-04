@@ -1,0 +1,13 @@
+# Test Binaries
+*.exe
+*.exe_cv
+*.dll
+*.build
+*.dep
+*.map
+*.json
+*.obj
+*.pdb
+*.cmd
+*.rsp
+*.html
