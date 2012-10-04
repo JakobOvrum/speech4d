@@ -160,7 +160,7 @@ Returns: sample rate in Hz, or -1 (EE_INTERNAL_ERROR).
 
 alias int function(short*, int, espeak_EVENT*) t_espeak_callback;
 
-void espeak_SetSynthCallback(t_espeak_callback* SynthCallback);
+void espeak_SetSynthCallback(t_espeak_callback SynthCallback);
 /* Must be called before any synthesis functions are called.
 This specifies a function in the calling program which is called when a buffer of
 speech sound data has been produced. 

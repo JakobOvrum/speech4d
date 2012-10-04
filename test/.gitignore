@@ -11,3 +11,6 @@
 *.cmd
 *.rsp
 *.html
+
+# eSpeak Output
+espeak.wav
