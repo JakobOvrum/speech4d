@@ -276,7 +276,7 @@
   <postBuildCommand />
   <filesToClean>*.obj;*.cmd;*.build;*.json;*.dep</filesToClean>
  </Config>
- <Folder name="espeak">
+ <Folder name="speech4d-espeak">
   <Folder name="speech">
    <Folder name="espeak">
     <File path="..\speech\espeak\espeak.d" />

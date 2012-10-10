@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{002A2DE9-8BB6-484D-9802-7E4AD4084715}") = "windows", "windows.visualdproj", "{0B7E2430-B3F6-43EC-92AA-E7E4E23747E7}"
+Project("{002A2DE9-8BB6-484D-9802-7E4AD4084715}") = "speech4d-windows", "speech4d-windows.visualdproj", "{0B7E2430-B3F6-43EC-92AA-E7E4E23747E7}"
 EndProject
-Project("{002A2DE9-8BB6-484D-9802-7E4AD4084715}") = "espeak", "espeak.visualdproj", "{0C35BAE2-6D7E-4ECE-ACD4-65EE3A94D27C}"
+Project("{002A2DE9-8BB6-484D-9802-7E4AD4084715}") = "speech4d-espeak", "speech4d-espeak.visualdproj", "{0C35BAE2-6D7E-4ECE-ACD4-65EE3A94D27C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
