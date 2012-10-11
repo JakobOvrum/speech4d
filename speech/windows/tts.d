@@ -13,6 +13,11 @@ struct Voice
 	CoReference!ISpVoice voice;
 
 	public:
+	void speak(in char[] text)
+	{
+		speakz(toUTF16z(text));
+	}
+
 	void speak(in wchar[] text)
 	{
 		speakz(toUTF16z(text));

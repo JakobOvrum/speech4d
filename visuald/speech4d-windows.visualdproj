@@ -86,7 +86,7 @@
   <libpaths />
   <deffile />
   <resfile />
-  <exefile>$(OutDir)\speech4d_sapi-d.lib</exefile>
+  <exefile>$(OutDir)\speech4d-sapi-d.lib</exefile>
   <additionalOptions />
   <preBuildCommand />
   <postBuildCommand />
@@ -178,7 +178,7 @@
   <libpaths />
   <deffile />
   <resfile />
-  <exefile>$(OutDir)\speech4d_sapi.lib</exefile>
+  <exefile>$(OutDir)\speech4d-sapi.lib</exefile>
   <additionalOptions />
   <preBuildCommand />
   <postBuildCommand />
@@ -284,6 +284,7 @@
     <File path="..\speech\windows\sapi.d" />
     <File path="..\speech\windows\tts.d" />
    </Folder>
+   <File path="..\speech\tts.d" />
   </Folder>
   <Folder name="test">
    <File path="..\test\windows.d" />
