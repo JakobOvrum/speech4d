@@ -13,6 +13,9 @@ alias GUID* REFGUID;
 extern(C) extern CLSID CLSID_SpVoice;
 extern(C) extern IID IID_ISpVoice;
 
+extern(C) extern CLSID CLSID_SpObjectTokenCategory;
+extern(C) extern IID IID_ISpObjectTokenCategory;
+
 struct WAVEFORMATEX
 {
     WORD    wFormatTag;        /* format type */
@@ -40,6 +43,199 @@ enum
 	SPDKL_CurrentConfig = 5
 }
 alias typeof(SPDKL_DefaultLocation) SPDATAKEYLOCATION;
+
+//--- TokenUI constants
+enum SPDUI_EngineProperties = `EngineProperties`;
+enum SPDUI_AddRemoveWord = `AddRemoveWord`;
+enum SPDUI_UserTraining = `UserTraining`;
+enum SPDUI_MicTraining = `MicTraining`;
+enum SPDUI_RecoProfileProperties = `RecoProfileProperties`;
+enum SPDUI_AudioProperties = `AudioProperties`;
+enum SPDUI_AudioVolume = `AudioVolume`;
+enum SPDUI_UserEnrollment = `UserEnrollment`;
+enum SPDUI_ShareData = `ShareData`;
+
+// new for Vista.  Nothing prevents use downlevel if an engine exposes them
+enum SPDUI_Tutorial = `Tutorial`;
+
+//--- Data formats - these are used by the CSpStreamFormat class in sphelper.h
+enum
+{
+    SPSF_Default = -1,
+	SPSF_NoAssignedFormat = 0,  // Similar to GUID_NULL
+	SPSF_Text,
+	SPSF_NonStandardFormat,     // Non-SAPI standard format with no WAVEFORMATEX description
+	SPSF_ExtendedAudioFormat,   // Non-SAPI standard format but has WAVEFORMATEX description
+	// Standard PCM wave formats
+	SPSF_8kHz8BitMono,
+	SPSF_8kHz8BitStereo,
+	SPSF_8kHz16BitMono,
+	SPSF_8kHz16BitStereo,
+	SPSF_11kHz8BitMono,
+	SPSF_11kHz8BitStereo,
+	SPSF_11kHz16BitMono,
+	SPSF_11kHz16BitStereo,
+	SPSF_12kHz8BitMono,
+	SPSF_12kHz8BitStereo,
+	SPSF_12kHz16BitMono,
+	SPSF_12kHz16BitStereo,
+	SPSF_16kHz8BitMono,
+	SPSF_16kHz8BitStereo,
+	SPSF_16kHz16BitMono,
+	SPSF_16kHz16BitStereo,
+	SPSF_22kHz8BitMono,
+	SPSF_22kHz8BitStereo,
+	SPSF_22kHz16BitMono,
+	SPSF_22kHz16BitStereo,
+	SPSF_24kHz8BitMono,
+	SPSF_24kHz8BitStereo,
+	SPSF_24kHz16BitMono,
+	SPSF_24kHz16BitStereo,
+	SPSF_32kHz8BitMono,
+	SPSF_32kHz8BitStereo,
+	SPSF_32kHz16BitMono,
+	SPSF_32kHz16BitStereo,
+	SPSF_44kHz8BitMono,
+	SPSF_44kHz8BitStereo,
+	SPSF_44kHz16BitMono,
+	SPSF_44kHz16BitStereo,
+	SPSF_48kHz8BitMono,
+	SPSF_48kHz8BitStereo,
+	SPSF_48kHz16BitMono,
+	SPSF_48kHz16BitStereo,
+	// TrueSpeech format
+	SPSF_TrueSpeech_8kHz1BitMono,
+	// A-Law formats
+	SPSF_CCITT_ALaw_8kHzMono,
+	SPSF_CCITT_ALaw_8kHzStereo,
+	SPSF_CCITT_ALaw_11kHzMono,
+	SPSF_CCITT_ALaw_11kHzStereo,
+	SPSF_CCITT_ALaw_22kHzMono,
+	SPSF_CCITT_ALaw_22kHzStereo,
+	SPSF_CCITT_ALaw_44kHzMono,
+	SPSF_CCITT_ALaw_44kHzStereo,
+	// u-Law formats
+	SPSF_CCITT_uLaw_8kHzMono,
+	SPSF_CCITT_uLaw_8kHzStereo,
+	SPSF_CCITT_uLaw_11kHzMono,
+	SPSF_CCITT_uLaw_11kHzStereo,
+	SPSF_CCITT_uLaw_22kHzMono,
+	SPSF_CCITT_uLaw_22kHzStereo,
+	SPSF_CCITT_uLaw_44kHzMono,
+	SPSF_CCITT_uLaw_44kHzStereo,
+	// ADPCM formats
+	SPSF_ADPCM_8kHzMono,
+	SPSF_ADPCM_8kHzStereo,
+	SPSF_ADPCM_11kHzMono,
+	SPSF_ADPCM_11kHzStereo,
+	SPSF_ADPCM_22kHzMono,
+	SPSF_ADPCM_22kHzStereo,
+	SPSF_ADPCM_44kHzMono,
+	SPSF_ADPCM_44kHzStereo,
+	// GSM 6.10 formats
+	SPSF_GSM610_8kHzMono,
+	SPSF_GSM610_11kHzMono,
+	SPSF_GSM610_22kHzMono,
+	SPSF_GSM610_44kHzMono,
+	SPSF_NUM_FORMATS
+}
+alias typeof(SPSF_Default) SPSTREAMFORMAT;
+
+extern(C) extern GUID SPDFID_Text;
+extern(C) extern GUID SPDFID_WaveFormatEx;
+
+//--- Root of registry entries for speech use
+enum SPREG_USER_ROOT = `HKEY_CURRENT_USER\SOFTWARE\Microsoft\Speech`;
+enum SPREG_LOCAL_MACHINE_ROOT = `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech`;
+
+//--- Categories for speech resource management
+enum SPCAT_AUDIOOUT = `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\AudioOutput`;
+enum SPCAT_AUDIOIN = `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\AudioInput`;
+enum SPCAT_VOICES = `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices`;
+enum SPCAT_RECOGNIZERS = `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Recognizers`;
+enum SPCAT_APPLEXICONS = `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\AppLexicons`;
+enum SPCAT_PHONECONVERTERS = `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\PhoneConverters`;
+enum SPCAT_RECOPROFILES = `HKEY_CURRENT_USER\SOFTWARE\Microsoft\Speech\RecoProfiles`;
+
+//--- Specific token ids of interest
+enum SPMMSYS_AUDIO_IN_TOKEN_ID = `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\AudioInput\TokenEnums\MMAudioIn\`;
+enum SPMMSYS_AUDIO_OUT_TOKEN_ID = `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\AudioOutput\TokenEnums\MMAudioOut\`;
+enum SPCURRENT_USER_LEXICON_TOKEN_ID = `HKEY_CURRENT_USER\SOFTWARE\Microsoft\Speech\CurrentUserLexicon`;
+
+/+ TODO
+#if _SAPI_BUILD_VER >= 0x053
+// Shortcuts only supported on Vista and above
+enum SPCURRENT_USER_SHORTCUT_TOKEN_ID = `HKEY_CURRENT_USER\SOFTWARE\Microsoft\Speech\CurrentUserShortcut`;
+#endif // _SAPI_BUILD_VER >= 0x053
++/
+
+//--- Standard token values
+enum SPTOKENVALUE_CLSID = `CLSID`;
+enum SPTOKENKEY_FILES = `Files`;
+enum SPTOKENKEY_UI = `UI`;
+enum SPTOKENKEY_ATTRIBUTES = `Attributes`;
+
+/+ TODO
+#if _SAPI_BUILD_VER >= 0x053
+enum SPTOKENKEY_RETAINEDAUDIO = `SecondsPerRetainedAudioEvent`;
+#endif // _SAPI_BUILD_VER >= 0x053
++/
+
+//--- Standard voice category values
+enum SPVOICECATEGORY_TTSRATE = `DefaultTTSRate`;
+
+//--- Standard SR Engine properties
+enum SPPROP_RESOURCE_USAGE = `ResourceUsage`;
+enum SPPROP_HIGH_CONFIDENCE_THRESHOLD = `HighConfidenceThreshold`;
+enum SPPROP_NORMAL_CONFIDENCE_THRESHOLD = `NormalConfidenceThreshold`;
+enum SPPROP_LOW_CONFIDENCE_THRESHOLD = `LowConfidenceThreshold`;
+enum SPPROP_RESPONSE_SPEED = `ResponseSpeed`;
+enum SPPROP_COMPLEX_RESPONSE_SPEED = `ComplexResponseSpeed`;
+enum SPPROP_ADAPTATION_ON = `AdaptationOn`;
+
+// new for Vista, but nothing prevents engines that run downlevel from supporting these
+enum SPPROP_PERSISTED_BACKGROUND_ADAPTATION = `PersistedBackgroundAdaptation`;
+enum SPPROP_PERSISTED_LANGUAGE_MODEL_ADAPTATION = `PersistedLanguageModelAdaptation`;
+enum SPPROP_UX_IS_LISTENING = `UXIsListening`;
+
+//--- Standard SAPI Recognition Topics
+enum SPTOPIC_SPELLING = `Spelling`;
+
+// CFG Wildcard token
+enum SPWILDCARD = `...`;
+
+// CFG Dication token
+enum SPDICTATION = `*`;
+enum SPINFDICTATION = `*+`;
+
+/+ TODO
+#if _SAPI_BUILD_VER >= 0x053
+// Registry key that stores a list of object token CLSIDs marked as safe to instantiate from HKCU
+enum SPREG_SAFE_USER_TOKENS = `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\UserTokens`;
+#endif // _SAPI_BUILD_VER >= 0x053
++/
+
+// CFG confidence scores
+enum byte SP_LOW_CONFIDENCE = -1;
+enum byte SP_NORMAL_CONFIDENCE = 0;
+enum byte SP_HIGH_CONFIDENCE = +1;
+
+// CFG default weight
+// MIDL does not support floating point in the RHS.  
+// Thus, using 1.0 instead of 1 resulted in unexpected behavior in the resulting type library.
+enum float DEFAULT_WEIGHT = 1;
+
+// Lexicon word and pronunciation limits
+enum ULONG SP_MAX_WORD_LENGTH = 128;
+enum ULONG SP_MAX_PRON_LENGTH = 384;
+
+/+ TODO
+#if _SAPI_BUILD_VER >= 0x053
+// Flag used in EmulateRecognitionEx to indicate re-sending an existing result
+enum ULONG SP_EMULATE_RESULT = 0x40000000;
+#endif // _SAPI_BUILD_VER >= 0x053
++/
+
 
 //--- ISpNotifyCallback -----------------------------------------------------
 
