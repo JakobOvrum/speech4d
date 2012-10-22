@@ -282,9 +282,11 @@
     <File path="..\speech\windows\comref.d" />
     <File path="..\speech\windows\ObjIdl.d" />
     <File path="..\speech\windows\sapi.d" />
-    <File path="..\speech\windows\tts.d" />
+    <File path="..\speech\windows\sphelper.d" />
+    <File path="..\speech\windows\synthesis.d" />
    </Folder>
-   <File path="..\speech\tts.d" />
+   <File path="..\speech\queue.d" />
+   <File path="..\speech\synthesis.d" />
   </Folder>
   <Folder name="test">
    <File path="..\test\windows.d" />
