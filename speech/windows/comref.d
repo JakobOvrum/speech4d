@@ -2,6 +2,7 @@ module speech.windows.comref;
 
 import std.c.windows.com;
 import core.sys.windows.windows;
+import std.string : format;
 
 class COMException : Exception
 {
@@ -10,7 +11,7 @@ class COMException : Exception
 	this(HRESULT hr, string fn = __FILE__, size_t ln = __LINE__)
 	{
 		error = hr;
-		super("error occured during COM call", fn, ln);
+		super(format("error occured during COM call (0x%x)", hr), fn, ln);
 	}
 }
 
@@ -29,7 +30,7 @@ private bool shouldUninitialize = true;
 struct CoReference(T : IUnknown)
 {
 	private:
-	T CoReference_object;
+	T CoReference_object = null;
 	
 	public:
 	T CoReference_get() @property
@@ -39,12 +40,12 @@ struct CoReference(T : IUnknown)
 
 	alias CoReference_get this;
 
-	@disable this();
+	// @disable this();
 
 	this(CLSID* clsid, IID* iid)
 	{
 		HRESULT hr = CoInitializeEx(null, COINIT_MULTITHREADED);
-		if(hr < 0)
+		if(hr < 0 && hr != RPC_E_CHANGED_MODE)
 			throw new COMException(hr);
 		
 		shouldUninitialize = hr != RPC_E_CHANGED_MODE;
@@ -52,18 +53,28 @@ struct CoReference(T : IUnknown)
 		coEnforce(CoCreateInstance(clsid, null, CLSCTX_ALL, iid, cast(void**)&CoReference_object));
 	}
 
+	this(T object)
+	{
+		CoReference_object = object;
+	}
+
 	this(this)
 	{
-		AddRef();
+		if(CoReference_object !is null)
+		{
+			AddRef();
+		}
 	}
 
 	~this()
 	{
-		if(Release() == 0)
+		if(CoReference_object !is null && Release() == 0)
 		{
 			CoReference_object = null;
 			if(shouldUninitialize)
+			{
 				CoUninitialize();
+			}
 		}
 	}
 }
