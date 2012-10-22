@@ -25,7 +25,7 @@ void coEnforce(HRESULT result, string fn = __FILE__, size_t ln = __LINE__)
 // CoUninitialize must not be called
 // if CoInitializeEx returned
 // RPC_E_CHANGED_MODE.
-private bool shouldUninitialize = true;
+version(speech4d_autocom) private bool shouldUninitialize = true;
 
 struct CoReference(T : IUnknown)
 {
@@ -44,11 +44,14 @@ struct CoReference(T : IUnknown)
 
 	this(CLSID* clsid, IID* iid)
 	{
-		HRESULT hr = CoInitializeEx(null, COINIT_MULTITHREADED);
-		if(hr < 0 && hr != RPC_E_CHANGED_MODE)
-			throw new COMException(hr);
+		version(speech4d_autocom)
+		{
+			HRESULT hr = CoInitializeEx(null, COINIT_MULTITHREADED);
+			if(hr < 0 && hr != RPC_E_CHANGED_MODE)
+				throw new COMException(hr);
 		
-		shouldUninitialize = hr != RPC_E_CHANGED_MODE;
+			shouldUninitialize = hr != RPC_E_CHANGED_MODE;
+		}
 
 		coEnforce(CoCreateInstance(clsid, null, CLSCTX_ALL, iid, cast(void**)&CoReference_object));
 	}
@@ -71,7 +74,7 @@ struct CoReference(T : IUnknown)
 		if(CoReference_object !is null && Release() == 0)
 		{
 			CoReference_object = null;
-			if(shouldUninitialize)
+			version(speech4d_autocom) if(shouldUninitialize)
 			{
 				CoUninitialize();
 			}
