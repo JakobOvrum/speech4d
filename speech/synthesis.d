@@ -1,3 +1,13 @@
+/**
+ * Cross-engine Text To Speech (TTS) interface.
+ *
+ * This module publicly imports the system default engine implementation of this interface.
+ * Currently, the default engine is Microsoft Speech API (SAPI) on Windows, and eSpeak for
+ * every other platform.
+ *
+ * Only cross-platform features are documented here. Documentation for implementation-specific
+ * features can be found in their respective modules.
+ */
 module speech.synthesis;
 
 version(Windows)
@@ -34,5 +44,5 @@ struct Voice
 	string name() @property;
 }
 
-/// Get an $(D InputRange) of $(D Voice) containing all voices installed on the system.
+/// Get an $(D InputRange) of $(D Voice) enumerating all voices installed on the system.
 auto voiceList() {}
