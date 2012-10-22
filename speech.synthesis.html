@@ -125,6 +125,52 @@
  Only cross-platform features are documented here. Documentation for implementation-specific
  features can be found in their respective modules.</p>
 </dl>
+<hr><div class="row-fluid declaration"><h3>struct <a class="symbol symbol-anchor" name="Synthesizer" href="#Synthesizer">Synthesizer</a>;
+</h3></div>
+<div class="declaration-content"><dl><p>Speech synthesizer for Text To Speech.</p>
+
+</dl>
+<div class="offset1 member-list"><hr><div class="row-fluid declaration"><h3>static Synthesizer <a class="symbol symbol-anchor" name="create" href="#create">create</a>();
+</h3></div>
+<div class="declaration-content"><dl><p>Create a new speech synthesis interface using the system default voice.</p>
+
+</dl>
+</div>
+<hr><div class="row-fluid declaration"><h3>void <a class="symbol symbol-anchor" name="speak" href="#speak">speak</a>(in char[] <i>text</i>);
+<br>void <a class="symbol symbol-anchor" name="speak" href="#speak">speak</a>(in wchar[] <i>text</i>);
+</h3></div>
+<div class="declaration-content"><dl><p>Speak a string of <i>text</i>.</p>
+
+</dl>
+</div>
+<hr><div class="row-fluid declaration"><h3>void <a class="symbol symbol-anchor" name="setVoice" href="#setVoice">setVoice</a>(Voice <i>voice</i>);
+</h3></div>
+<div class="declaration-content"><dl><p>Set the <i>voice</i> to use for speech synthesis.</p>
+
+</dl>
+</div>
+</div>
+</div>
+<hr><div class="row-fluid declaration"><h3>struct <a class="symbol symbol-anchor" name="Voice" href="#Voice">Voice</a>;
+</h3></div>
+<div class="declaration-content"><dl><p>Represents a single voice to use with speech synthesis.</p>
+
+</dl>
+<div class="offset1 member-list"><hr><div class="row-fluid declaration"><h3>@property string <a class="symbol symbol-anchor" name="name" href="#name">name</a>();
+</h3></div>
+<div class="declaration-content"><dl><p>Name of this voice.</p>
+
+</dl>
+</div>
+</div>
+</div>
+<hr><div class="row-fluid declaration"><h3>auto <a class="symbol symbol-anchor" name="voiceList" href="#voiceList">voiceList</a>();
+</h3></div>
+<div class="declaration-content"><dl><p>Get an <span class="inlinecode">InputRange</span> of <span class="inlinecode">Voice</span> containing all voices installed on the system.</p>
+
+</dl>
+</div>
+
 
 				</div>
 				
