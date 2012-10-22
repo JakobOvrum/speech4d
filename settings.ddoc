@@ -2,7 +2,7 @@ PROJECTNAME = speech4d
 REFERENCETOP = index.html
 REPOSRCTREE = http://github.com/JakobOvrum/speech4d/tree/master
 TITLEBARTEXT = <a href="https://github.com/JakobOvrum/speech4d">Github Page</a>
-RESOURCEROOT =
+RESOURCEROOT = bootDoc/
 PACKAGESEP = .
 FAVICON = $(RESOURCEROOT)assets/ico/favicon.ico
 LOGOSRC = $(RESOURCEROOT)assets/img/icon-github.png
