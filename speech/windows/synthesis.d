@@ -1,4 +1,4 @@
-module speech.windows.tts;
+module speech.windows.synthesis;
 
 import std.utf;
 
@@ -7,7 +7,7 @@ import std.c.windows.com;
 import speech.windows.sapi;
 import speech.windows.comref;
 
-struct Voice
+struct Synthesizer
 {
 	private:
 	CoReference!ISpVoice voice;
@@ -29,9 +29,9 @@ struct Voice
 	}
 }
 
-/// Create a new voice interface using the system default voice.
-Voice createVoice()
+/// Create a new speech synthesis interface using the system default voice.
+Synthesizer createSynthesizer()
 {
-	auto voice = Voice(CoReference!ISpVoice(&CLSID_SpVoice, &IID_ISpVoice));
-	return voice;
+	auto tts = Synthesizer(CoReference!ISpVoice(&CLSID_SpVoice, &IID_ISpVoice));
+	return tts;
 }
