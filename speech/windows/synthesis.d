@@ -40,7 +40,7 @@ struct Synthesizer
 
 	void setVoice(Voice voice)
 	{
-		synth.SetVoice(voice.cpVoiceToken);
+		coEnforce(synth.SetVoice(voice.cpVoiceToken));
 	}
 }
 
@@ -94,6 +94,8 @@ auto voiceList()
 			coEnforce(cpEnum.GetCount(&count));
 			return cast(size_t)count;
 		}
+
+		// TODO: array() method
 	}
 
 	auto result = Result();
