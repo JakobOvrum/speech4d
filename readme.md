@@ -26,7 +26,7 @@ Building with VisualD
 ---------------------------------------------------------
 The Microsoft Speech API (SAPI) is a system library included with Windows.
 An import library for SAPI in the OMF format required by DMD32 can be found [here](https://github.com/downloads/JakobOvrum/speech4d/sapi.rar)
-as a convenience.
+as a convenience. The project files will look for the import library at `lib/sapi.lib`.
 
 eSpeak on Windows comes with either its own cross-platform API or as a backend voice supplier to the Microsoft SAPI.
 On Windows, the cross-platform API only supports synchronous retrieval of audio data, no playback or asynchronous retrieval,
