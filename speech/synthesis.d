@@ -33,6 +33,9 @@ struct Synthesizer
 	/// Ditto
 	void speak(in wchar[] text);
 
+	/// Synthesizer is an $(D OutputRange) of strings.
+	alias speak put;
+
 	/// Set the voice to use for speech synthesis.
 	void setVoice(Voice voice);
 }

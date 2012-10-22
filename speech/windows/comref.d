@@ -1,5 +1,7 @@
 module speech.windows.comref;
 
+import std.algorithm : swap;
+
 import std.c.windows.com;
 import core.sys.windows.windows;
 import std.string : format;
@@ -25,7 +27,7 @@ void coEnforce(HRESULT result, string fn = __FILE__, size_t ln = __LINE__)
 // CoUninitialize must not be called
 // if CoInitializeEx returned
 // RPC_E_CHANGED_MODE.
-version(speech4d_autocom) private bool shouldUninitialize = true;
+version(speech4d_autocominit) private bool shouldUninitialize = true;
 
 struct CoReference(T : IUnknown)
 {
@@ -67,6 +69,11 @@ struct CoReference(T : IUnknown)
 		{
 			AddRef();
 		}
+	}
+
+	void opAssign(typeof(this) rhs)
+	{
+		swap(CoReference_object, rhs.CoReference_object);
 	}
 
 	~this()

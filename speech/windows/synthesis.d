@@ -11,12 +11,12 @@ import speech.windows.sapi;
 import speech.windows.sphelper;
 import speech.windows.comref;
 
-version(speech4d_manualcom) {}
+version(speech4d_manualcominit) {}
 else
 {
 	bool shouldUninitialize;
 
-	shared static this()
+	static this()
 	{
 		HRESULT hr = CoInitializeEx(null, COINIT_MULTITHREADED);
 		if(hr < 0 && hr != RPC_E_CHANGED_MODE)
@@ -25,7 +25,7 @@ else
 		shouldUninitialize = hr != RPC_E_CHANGED_MODE;
 	}
 
-	shared static ~this()
+	static ~this()
 	{
 		if(shouldUninitialize)
 			CoUninitialize();
@@ -56,7 +56,24 @@ struct Synthesizer
 	
 	void speakz(in wchar* text)
 	{
-		coEnforce(synth.Speak(text, 0, null));
+		coEnforce(synth.Speak(text, SPF_DEFAULT, null));
+	}
+
+	alias speak put;
+
+	void queue(in char[] text)
+	{
+		queuez(toUTF16z(text));
+	}
+
+	void queue(in wchar[] text)
+	{
+		queuez(toUTF16z(text));
+	}
+
+	void queuez(in wchar* text)
+	{
+		coEnforce(synth.Speak(text, SPF_ASYNC, null));
 	}
 
 	void setVoice(Voice voice)
@@ -67,7 +84,9 @@ struct Synthesizer
 
 struct Voice
 {
-	private CoReference!ISpObjectToken cpVoiceToken;
+	//BUG, TODO: causes weird access violation, workaround leaks
+	private ISpObjectToken cpVoiceToken;
+	//private CoReference!ISpObjectToken cpVoiceToken;
 
 	string name() @property
 	{
@@ -116,7 +135,18 @@ auto voiceList()
 			return cast(size_t)count;
 		}
 
-		// TODO: array() method
+		Voice[] array()
+		{
+			if(remaining <= 1)
+				return null;
+
+			auto voiceArray = new ISpObjectToken[cast(size_t)remaining];
+			voiceArray[0] = cpVoiceToken;
+
+			ULONG fetched;
+			coEnforce(cpEnum.Next(cast(ULONG)voiceArray.length - 1, &voiceArray[1], &fetched));
+			return cast(Voice[])voiceArray;
+		}
 	}
 
 	auto result = Result();
