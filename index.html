@@ -136,6 +136,20 @@ and usage information.
 	synth.speak(<span class="d_string">"Hello, world"</span>);
 }
 </pre>
+Voice Enumeration
+<pre class="d_code"><span class="d_keyword">import</span> speech.synthesis;
+
+<span class="d_keyword">void</span> main()
+{
+	<span class="d_keyword">auto</span> synth = Synthesizer.create();
+
+	<span class="d_keyword">foreach</span>(voice; voiceList())
+	{
+		synth.setVoice(voice);
+		synth.speak(voice.name);
+	}
+}
+</pre>
 </dd>
 </dl>
 
