@@ -1,5 +1,5 @@
 PROJECTNAME = speech4d
-REFERENCETOP = speech.synthesis.html
+REFERENCETOP = index.html
 REPOSRCTREE = http://github.com/JakobOvrum/speech4d/tree/master
 TITLEBARTEXT = <a href="https://github.com/JakobOvrum/speech4d">Github Page</a>
 RESOURCEROOT =
