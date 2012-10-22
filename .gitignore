@@ -3,3 +3,6 @@
 
 # Visual Studio
 *.suo
+
+# Documentation
+/docs
