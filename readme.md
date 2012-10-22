@@ -8,7 +8,7 @@ Text To Speech
 ---------------------------------------------------------
 The high level interface currently only has a Windows Speech API backend.
 
-*speech4d* also includes bindings for the Windows Speech API (SAPI) and the cross-platform eSpeak API.
+*speech4d* also includes bindings for the Windows Speech API and the cross-platform eSpeak API.
 
 Voice Recognition
 ---------------------------------------------------------
@@ -21,6 +21,21 @@ Directory Structure
  * `visuald` - [VisualD](http://www.dsource.org/projects/visuald) project files.
  * `test` - test sources and binaries (when built).
  * `lib` - *speech4d* library files (when built).
+ 
+Building with VisualD
+---------------------------------------------------------
+The Microsoft Speech API (SAPI) is a system library included with Windows.
+An import library for SAPI in the OMF format required by DMD32 can be found [here](https://github.com/downloads/JakobOvrum/speech4d/sapi.rar)
+as a convenience.
+
+eSpeak on Windows comes with either its own cross-platform API or as a backend voice supplier to the Microsoft SAPI.
+On Windows, the cross-platform API only supports synchronous retrieval of audio data, no playback or asynchronous retrieval,
+hence the SAPI backend is preferable on this platform.
+
+The eSpeak SAPI provider can be found on the [eSpeak downloads page](http://espeak.sourceforge.net/download.html).
+
+A Windows DLL and import library for the cross-platform eSpeak
+library can nonetheless be found [here](https://github.com/downloads/JakobOvrum/speech4d/espeak_lib.rar).
 
 [Documentation](http://jakobovrum.github.com/speech4d/)
 ---------------------------------------------------------
