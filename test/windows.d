@@ -1,5 +1,4 @@
 import std.stdio;
-import std.c.windows.com;
 
 import speech.windows.synthesis;
 
