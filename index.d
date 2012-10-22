@@ -20,6 +20,21 @@ void main()
 	synth.speak("Hello, world");
 }
 ----------------------
+Voice Enumeration
+----------------------
+import speech.synthesis;
+
+void main()
+{
+	auto synth = Synthesizer.create();
+
+	foreach(voice; voiceList())
+	{
+		synth.setVoice(voice);
+		synth.speak(voice.name);
+	}
+}
+----------------------
 Macros:
 REPOSRCTREE = http://github.com/JakobOvrum/speech4d/tree/gh-pages
 +/
