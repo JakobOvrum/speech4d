@@ -11,6 +11,27 @@ import speech.windows.sapi;
 import speech.windows.sphelper;
 import speech.windows.comref;
 
+version(speech4d_manualcom) {}
+else
+{
+	bool shouldUninitialize;
+
+	shared static this()
+	{
+		HRESULT hr = CoInitializeEx(null, COINIT_MULTITHREADED);
+		if(hr < 0 && hr != RPC_E_CHANGED_MODE)
+			throw new COMException(hr);
+
+		shouldUninitialize = hr != RPC_E_CHANGED_MODE;
+	}
+
+	shared static ~this()
+	{
+		if(shouldUninitialize)
+			CoUninitialize();
+	}
+}
+
 struct Synthesizer
 {
 	private:

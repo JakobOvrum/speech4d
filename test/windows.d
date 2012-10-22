@@ -5,9 +5,6 @@ import speech.windows.synthesis;
 
 version(speech4d_test) void main()
 {
-	CoInitializeEx(null, COINIT_MULTITHREADED);
-	scope(exit) CoUninitialize();
-	
 	auto synth = Synthesizer.create();
 
 	auto voices = voiceList();
