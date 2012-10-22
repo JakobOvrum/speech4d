@@ -1,14 +1,14 @@
 speech4d - Speech Library for the D Programming Language
 =========================================================
 *speech4d* is a library aiming at providing comprehensive TTS (Text To Speech) and
-voice recognition capabilities for the D programming language, in the form of both
-low level bindings and higher level wrapper libraries.
+voice recognition capabilities for the D programming language, in the form of a
+cross-platform high level interface, as well as low level engine bindings.
 
 Text To Speech
 ---------------------------------------------------------
-*speech4d* currently includes bindings for the Windows Speech API (SAPI) and the cross-platform eSpeak API.
-The goal is to provide a uniform high-level API for all supported backends, with
-minimal effort required to support multiple platforms in the user application.
+The high level interface currently only has a Windows Speech API backend.
+
+*speech4d* also includes bindings for the Windows Speech API (SAPI) and the cross-platform eSpeak API.
 
 Voice Recognition
 ---------------------------------------------------------
@@ -22,9 +22,9 @@ Directory Structure
  * `test` - test sources and binaries (when built).
  * `lib` - *speech4d* library files (when built).
 
-Documentation
+[Documentation](http://jakobovrum.github.com/speech4d/)
 ---------------------------------------------------------
-Documentation for the wrapper libraries is coming soon.
+Documentation can be found on the [gh-pages branch](https://github.com/JakobOvrum/speech4d/tree/gh-pages), or read online [here](http://jakobovrum.github.com/speech4d/).
 
 Documentation for the [Windows Speech API](http://msdn.microsoft.com/en-us/library/ms723627.aspx) and the [eSpeak API](http://espeak.sourceforge.net/speak_lib.h) can be found at their respective websites.
 
