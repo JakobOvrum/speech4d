@@ -285,7 +285,6 @@
     <File path="..\speech\windows\sphelper.d" />
     <File path="..\speech\windows\synthesis.d" />
    </Folder>
-   <File path="..\speech\queue.d" />
    <File path="..\speech\synthesis.d" />
   </Folder>
   <Folder name="test">
