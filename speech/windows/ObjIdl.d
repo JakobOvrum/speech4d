@@ -37,6 +37,7 @@ interface IStream : ISequentialStream
 {
     alias IStream LPSTREAM;
 
+	/+ TODO: ULARGE_INTEGER not found for GDC?
     /* Storage stat buffer */
 	struct STATSTG
 	{
@@ -52,7 +53,7 @@ interface IStream : ISequentialStream
 		DWORD grfStateBits;
 		DWORD reserved;
 	}
-
+	+/
 
 	/* Storage element types */
 	enum

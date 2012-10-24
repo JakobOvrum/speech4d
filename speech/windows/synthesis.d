@@ -46,12 +46,12 @@ struct Synthesizer
 
 	void speak(in char[] text)
 	{
-		speakz(toUTF16z(text));
+		speakz(toUTFz!(const(wchar)*)(text));
 	}
 
 	void speak(in wchar[] text)
 	{
-		speakz(toUTF16z(text));
+		speakz(toUTFz!(const(wchar)*)(text));
 	}
 	
 	void speakz(in wchar* text)
@@ -63,12 +63,12 @@ struct Synthesizer
 
 	void queue(in char[] text)
 	{
-		queuez(toUTF16z(text));
+		queuez(toUTFz!(const(wchar)*)(text));
 	}
 
 	void queue(in wchar[] text)
 	{
-		queuez(toUTF16z(text));
+		queuez(toUTFz!(const(wchar)*)(text));
 	}
 
 	void queuez(in wchar* text)
