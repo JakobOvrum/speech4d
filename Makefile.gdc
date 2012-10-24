@@ -1,0 +1,47 @@
+BUILD ?= release
+MODEL ?= $(shell getconf LONG_BIT)
+
+ifneq ($(MODEL), 32)
+	ifneq ($(MODEL), 64)
+		$(error Unsupported architecture: $(MODEL))
+	endif
+endif
+
+ifneq ($(BUILD), debug)
+	ifneq ($(BUILD), release)
+		$(error Unknown build mode: $(BUILD))
+	endif
+endif
+
+DFLAGS = -c -Wall -fproperty -m$(MODEL)
+
+ifeq ($(BUILD), release)
+	DFLAGS += -frelease -O3 -finline-functions -fno-bounds-check
+	LIBNAME = speech4d
+else
+	DFLAGS += -fdebug -g
+	LIBNAME = speech4d-d
+endif
+
+ifeq ($(MODEL), 32)
+	OUTDIR = lib32
+else
+	OUTDIR = lib
+endif
+
+# Add other backends here
+SPEECH4D_SOURCES = $(wildcard speech/windows/*.d) $(wildcard speech/*.d)
+
+all: $(OUTDIR)/lib$(LIBNAME).a
+
+.PHONY : clean
+
+clean:
+	-rm $(OUTDIR)/$(LIBNAME).o $(OUTDIR)/lib$(LIBNAME).a
+
+$(OUTDIR)/$(LIBNAME).o: $(SPEECH4D_SOURCES)
+	if ! test -d $(OUTDIR); then mkdir $(OUTDIR); fi
+	gdc $(DFLAGS) -o "$@" $^
+
+$(OUTDIR)/lib$(LIBNAME).a: $(OUTDIR)/$(LIBNAME).o
+	ar rcs "$@" $^

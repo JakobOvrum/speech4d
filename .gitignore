@@ -1,5 +1,6 @@
 # Library Output
 /lib
+/lib32
 
 # Visual Studio
 *.suo
