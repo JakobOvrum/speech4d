@@ -48,7 +48,7 @@
   <program>$(DMDInstallDir)windows\bin\dmd.exe</program>
   <imppath>..</imppath>
   <fileImppath />
-  <outdir>..\lib</outdir>
+  <outdir>..\lib32</outdir>
   <objdir>$(OutDir)</objdir>
   <objname />
   <libname />
@@ -140,7 +140,7 @@
   <program>$(DMDInstallDir)windows\bin\dmd.exe</program>
   <imppath>..</imppath>
   <fileImppath />
-  <outdir>..\lib</outdir>
+  <outdir>..\lib32</outdir>
   <objdir>$(OutDir)</objdir>
   <objname />
   <libname />
