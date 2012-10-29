@@ -99,6 +99,18 @@ struct Synthesizer
 		coEnforce(synth.GetVolume(&vol));
 		return vol;
 	}
+
+	void rate(int newRate) @property
+	{
+		coEnforce(synth.SetRate(cast(long)newRate));
+	}
+
+	int rate() @property
+	{
+		long r;
+		coEnforce(synth.GetRate(&r));
+		return cast(int)r;
+	}
 }
 
 struct Voice

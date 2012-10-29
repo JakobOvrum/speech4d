@@ -47,6 +47,12 @@ struct Synthesizer
 	
 	/// Ditto
 	uint volume() @property;
+	
+	/// Rate of speech synthesis.
+	void rate(int newRate) @property;
+	
+	/// Ditto
+	int rate() @property;
 }
 
 /// Represents a single voice to use with speech synthesis.
