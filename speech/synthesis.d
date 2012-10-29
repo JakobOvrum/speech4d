@@ -36,8 +36,17 @@ struct Synthesizer
 	/// Synthesizer is an $(D OutputRange) of strings.
 	alias speak put;
 
-	/// Set the voice to use for speech synthesis.
-	void setVoice(Voice voice);
+	/// Voice to use for speech synthesis.
+	void voice(Voice newVoice) @property;
+	
+	/// Ditto
+	Voice voice() @property;
+	
+	/// Volume of speech playback in the range 0-100.
+	void volume(uint newVolume) @property;
+	
+	/// Ditto
+	uint volume() @property;
 }
 
 /// Represents a single voice to use with speech synthesis.

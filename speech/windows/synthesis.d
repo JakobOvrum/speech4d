@@ -76,9 +76,28 @@ struct Synthesizer
 		coEnforce(synth.Speak(text, SPF_ASYNC, null));
 	}
 
-	void setVoice(Voice voice)
+	void voice(Voice newVoice) @property
 	{
-		coEnforce(synth.SetVoice(voice.cpVoiceToken));
+		coEnforce(synth.SetVoice(newVoice.cpVoiceToken));
+	}
+
+	Voice voice() @property
+	{
+		ISpObjectToken voiceToken;
+		coEnforce(synth.GetVoice(&voiceToken));
+		return Voice(voiceToken);
+	}
+
+	void volume(uint newVolume) @property
+	{
+		coEnforce(synth.SetVolume(cast(USHORT)newVolume));
+	}
+
+	uint volume() @property
+	{
+		USHORT vol;
+		coEnforce(synth.GetVolume(&vol));
+		return vol;
 	}
 }
 
