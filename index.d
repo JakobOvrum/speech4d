@@ -30,7 +30,7 @@ void main()
 
 	foreach(voice; voiceList())
 	{
-		synth.setVoice(voice);
+		synth.voice = voice;
 		synth.speak(voice.name);
 	}
 }
