@@ -143,9 +143,30 @@
 
 </dl>
 </div>
-<hr><div class="row-fluid declaration"><h3>void <a class="symbol symbol-anchor" name="setVoice" href="#setVoice">setVoice</a>(Voice <i>voice</i>);
+<hr><div class="row-fluid declaration"><h3>alias <a class="symbol symbol-anchor" name="put" href="#put">put</a>;
 </h3></div>
-<div class="declaration-content"><dl><p>Set the <i>voice</i> to use for speech synthesis.</p>
+<div class="declaration-content"><dl><p>Synthesizer is an <span class="inlinecode">OutputRange</span> of strings.</p>
+
+</dl>
+</div>
+<hr><div class="row-fluid declaration"><h3>@property void <a class="symbol symbol-anchor" name="voice" href="#voice">voice</a>(Voice <i>newVoice</i>);
+<br>@property Voice <a class="symbol symbol-anchor" name="voice" href="#voice">voice</a>();
+</h3></div>
+<div class="declaration-content"><dl><p>Voice to use for speech synthesis.</p>
+
+</dl>
+</div>
+<hr><div class="row-fluid declaration"><h3>@property void <a class="symbol symbol-anchor" name="volume" href="#volume">volume</a>(uint <i>newVolume</i>);
+<br>@property uint <a class="symbol symbol-anchor" name="volume" href="#volume">volume</a>();
+</h3></div>
+<div class="declaration-content"><dl><p>Volume of speech playback in the range 0-100.</p>
+
+</dl>
+</div>
+<hr><div class="row-fluid declaration"><h3>@property void <a class="symbol symbol-anchor" name="rate" href="#rate">rate</a>(int <i>newRate</i>);
+<br>@property int <a class="symbol symbol-anchor" name="rate" href="#rate">rate</a>();
+</h3></div>
+<div class="declaration-content"><dl><p>Rate of speech synthesis.</p>
 
 </dl>
 </div>
