@@ -145,7 +145,7 @@ Voice Enumeration
 
 	<span class="d_keyword">foreach</span>(voice; voiceList())
 	{
-		synth.setVoice(voice);
+		synth.voice = voice;
 		synth.speak(voice.name);
 	}
 }
