@@ -1,0 +1,17 @@
+{
+	"name": "speech4d",
+	"description": "Speech Library for the D Programming Language",
+	"authors": ["Jakob Ovrum"],
+	"copyright": "Copyright© Jakob Ovrum 2012-2014",
+	"homepage": "https://github.com/JakobOvrum/speech4d",
+	"license": "MIT",
+
+	"targetType": "library",
+	"targetPath": "lib",
+
+	"sourcePaths": ["speech"],
+
+	"libs-windows": ["ole32"],
+	"libs-windows-x86_64": ["sapi"],
+	"sourceFiles-windows-x86-dmd": ["extlib/sapi.lib"]
+}
