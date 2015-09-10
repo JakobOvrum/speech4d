@@ -10,7 +10,11 @@
 	"targetPath": "lib",
 
 	"sourcePaths": ["source"],
+	"excludedSourceFiles-posix": ["source/speech/windows/*"],
+
 	"importPaths": ["source"],
+
+	"libs-posix": ["espeak"],
 
 	"libs-windows": ["ole32"],
 	"libs-windows-x86_64": ["sapi"],
