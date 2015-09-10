@@ -9,9 +9,11 @@
 	"targetType": "library",
 	"targetPath": "lib",
 
-	"sourcePaths": ["speech"],
+	"sourcePaths": ["source"],
+	"importPaths": ["source"],
 
 	"libs-windows": ["ole32"],
 	"libs-windows-x86_64": ["sapi"],
 	"sourceFiles-windows-x86-dmd": ["extlib/sapi.lib"]
 }
+
