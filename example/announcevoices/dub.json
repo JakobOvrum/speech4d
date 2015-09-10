@@ -1,0 +1,13 @@
+{
+	"name": "announcevoices",
+
+	"targetType": "executable",
+	"targetPath": ".",
+
+	"sourcePaths": ["."],
+
+	"dependencies": {
+		"speech4d": {"version": "~master", "path": "../../"}
+	}
+}
+
