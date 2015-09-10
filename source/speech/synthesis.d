@@ -34,7 +34,7 @@ struct Synthesizer
 	void speak(in wchar[] text);
 
 	/// Synthesizer is an $(D OutputRange) of strings.
-	alias speak put;
+	alias put = speak;
 
 	/// Voice to use for speech synthesis.
 	void voice(Voice newVoice) @property;
@@ -64,3 +64,4 @@ struct Voice
 
 /// Get an $(D InputRange) of $(D Voice) enumerating all voices installed on the system.
 auto voiceList() {}
+
