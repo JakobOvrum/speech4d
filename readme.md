@@ -1,3 +1,4 @@
+[![dub](https://img.shields.io/dub/v/speech4d.svg)](http://code.dlang.org/packages/speech4d) [![Build Status](https://travis-ci.org/JakobOvrum/speech4d.svg?branch=master)](https://travis-ci.org/JakobOvrum/speech4d)
 speech4d - Speech Library for the D Programming Language
 =========================================================
 *speech4d* is a library aiming at providing comprehensive TTS (Text To Speech) and
