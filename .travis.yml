@@ -12,6 +12,7 @@ addons:
   apt:
     packages:
     - gcc-multilib
+    - libespeak1
 
 notifications:
   email: false
