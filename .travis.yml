@@ -13,6 +13,7 @@ addons:
     packages:
     - gcc-multilib
     - libespeak-dev
+    - libespeak-dev:i386
 
 notifications:
   email: false
