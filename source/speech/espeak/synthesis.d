@@ -25,7 +25,7 @@ private uint synth(in char[] text)
 	import std.string : toStringz;
 
 	uint identifier;
-	espeak_Synth(toStringz(text), text.length, 0, espeakEVENT_WORD, 0, espeakCHARS_UTF8 | espeakSSML, &identifier, null);
+	espeak_Synth(toStringz(text), text.length + 1, 0, espeakEVENT_WORD, 0, espeakCHARS_UTF8 | espeakSSML, &identifier, null);
 	return identifier;
 }
 
@@ -90,6 +90,17 @@ struct Voice
 		import std.string : fromStringz;
 		return fromStringz(voice.name);
 	}
+
+	// ISO 639-1 2-letter code, with fallback to ISO 639-3 3-letter code
+	string language() @property
+	{
+		import std.algorithm.searching : findSplit;
+		import std.string : fromStringz;
+		//ubyte priority = cast(ubyte)*voice.languages;
+		auto langSpec = fromStringz(voice.languages + 1);
+		auto split = langSpec.findSplit("-");
+		return split[0]; // ignore dialect for now
+	}
 }
 
 auto voiceList()
@@ -100,6 +111,7 @@ auto voiceList()
 
 		Voice front() @property
 		{
+			assert(!empty);
 			return Voice(*list);
 		}
 
@@ -110,6 +122,7 @@ auto voiceList()
 
 		void popFront() @property
 		{
+			assert(!empty);
 			++list;
 		}
 

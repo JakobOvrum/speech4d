@@ -500,7 +500,7 @@ void espeak_CompileDictionary(const(char)* path, FILE *log, int flags);
 // voice table
 struct espeak_VOICE {
 	immutable(char)* name;      // a given name for this voice. UTF8 string.
-	const(char)* languages;       // list of pairs of (byte) priority + (string) language (and dialect qualifier)
+	immutable(char)* languages;       // list of pairs of (byte) priority + (string) language (and dialect qualifier)
 	const(char)* identifier;      // the filename for this voice within espeak-data/voices
 	char gender;  // 0=none 1=male, 2=female,
 	char age;     // 0=not specified, or age in years
