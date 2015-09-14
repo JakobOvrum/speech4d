@@ -1,0 +1,7 @@
+# Binaries
+/listvoices
+
+# dub
+/.dub
+/dub.selections.json
+
