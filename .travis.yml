@@ -13,7 +13,9 @@ addons:
     packages:
     - gcc-multilib
     - libespeak-dev
+    - portaudio19-dev
     - libespeak-dev:i386
+    - portaudio19-dev:i386
 
 notifications:
   email: false
