@@ -1,3 +1,6 @@
 [submodule "test/libsndfile"]
 	path = test/libsndfile
 	url = git://github.com/D-Programming-Deimos/libsndfile.git
+[submodule "portaudio"]
+	path = portaudio
+	url = https://github.com/D-Programming-Deimos/portaudio.git

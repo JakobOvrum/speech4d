@@ -10,10 +10,12 @@
 	"targetPath": "lib",
 
 	"sourcePaths": ["source"],
+	"sourceFiles": ["portaudio/deimos/portaudio.di"],
 	"excludedSourceFiles-posix": ["source/speech/windows/*"],
 
-	"importPaths": ["source"],
+	"importPaths": ["source", "portaudio"],
 
+	"libs": ["portaudio"],
 	"libs-posix": ["espeak"],
 
 	"libs-windows": ["ole32"],
