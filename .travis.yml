@@ -6,16 +6,13 @@ os:
  - linux
 
 d:
- - dmd-2.068.0
+ - dmd-2.068.1
 
 addons:
   apt:
     packages:
-    - gcc-multilib
     - libespeak-dev
     - portaudio19-dev
-    - libespeak-dev:i386
-    - portaudio19-dev:i386
 
 notifications:
   email: false
@@ -23,13 +20,10 @@ notifications:
 env:
   global:
     secure: BrwS2zx9er1UKbUS2YoRFnk25whXJ3ZG4UFp3KROK7IYsPD4R2SWYG9SJ3JdPDaDoRP3rsI/uM2EhsthvK7mHP6yAz/zX6ui5gefzwX8xY2kOQ38FK3A0z6US0j/U4oXcmRbKT+CGRPTjnVrs05d/ilTlT74oOEdvscuQ1tdxxs=
-  matrix:
-   - ARCH=x86
-   - ARCH=x86_64
 
 script:
- - dub build --arch=$ARCH
- - for ex in `\ls -1 example/`; do (echo "[INFO] Building example $ex"; cd example/$ex && dub build --arch=$ARCH) || exit 1; done
+ - dub build
+ - for ex in `\ls -1 example/`; do (echo "[INFO] Building example $ex"; cd example/$ex && dub build) || exit 1; done
 
 after_success:
  - "./push-ddoc.sh"
