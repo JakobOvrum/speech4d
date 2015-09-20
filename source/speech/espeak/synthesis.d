@@ -1,8 +1,12 @@
 module speech.espeak.synthesis;
 
+import std.range.primitives : isInputRange, ElementType;
+import std.traits : isSomeChar;
+
+import deimos.portaudio;
+
 import speech.espeak.espeak;
 import speech.audio.portaudio;
-import deimos.portaudio;
 
 private immutable int hzSampleRate;
 
@@ -52,10 +56,10 @@ struct Synthesizer
 				null));
 	}
 
-	uint synth(in char[] text)
+	uint synth(in char[] text, uint extraFlags)
 	{
 		uint identifier;
-		espeak_Synth(text.ptr, text.length, 0, POS_CHARACTER, cast(uint)text.length, espeakCHARS_UTF8 | espeakSSML, &identifier, stream);
+		espeak_Synth(text.ptr, text.length + 1, 0, POS_CHARACTER, cast(uint)text.length, espeakCHARS_UTF8 | extraFlags, &identifier, stream);
 		return identifier;
 	}
 
@@ -74,16 +78,34 @@ struct Synthesizer
 	void speak(in char[] text)
 	{
 		Pa_StartStream(stream);
-		synth(text);
+		synth(text, espeakSSML);
 		espeak_Synchronize();
 		Pa_StopStream(stream);
+	}
+
+	// TODO: handle SSML properly
+	void speak(Range)(Range range)
+		if(isInputRange!Range && isSomeChar!(ElementType!Range))
+	{
+		import speech.buffer : bufferSpeech;
+
+		Pa_StartStream(stream);
+		scope(exit) Pa_StopStream(stream);
+
+		char[1024] buffer = void;
+
+		foreach(chunk; bufferSpeech(range, buffer[]))
+		{
+			synth(chunk, 0);
+			espeak_Synchronize();
+		}
 	}
 
 	alias put = speak;
 
 	void queue(in char[] text)
 	{
-		synth(text);
+		synth(text, espeakSSML);
 	}
 
 	void voice(Voice newVoice) @property

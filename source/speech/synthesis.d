@@ -29,7 +29,7 @@ struct Synthesizer
 
 	/// Speak a string of text.
 	void speak(in char[] text);
-	
+
 	/// Ditto
 	void speak(in wchar[] text);
 
@@ -38,19 +38,19 @@ struct Synthesizer
 
 	/// Voice to use for speech synthesis.
 	void voice(Voice newVoice) @property;
-	
+
 	/// Ditto
 	Voice voice() @property;
-	
+
 	/// Volume of speech playback in the range 0-100.
 	void volume(uint newVolume) @property;
-	
+
 	/// Ditto
 	uint volume() @property;
-	
+
 	/// Rate of speech synthesis.
 	void rate(int newRate) @property;
-	
+
 	/// Ditto
 	int rate() @property;
 }
