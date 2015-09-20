@@ -1,0 +1,7 @@
+# Binaries
+/synthesizeinput
+
+# dub
+/.dub
+/dub.selections.json
+
