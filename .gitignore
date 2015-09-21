@@ -15,3 +15,5 @@
 # Temporary files
 *.swp
 
+# Executable Binaries
+*.exe
