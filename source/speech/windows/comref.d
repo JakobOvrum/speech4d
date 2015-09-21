@@ -13,7 +13,7 @@ class COMException : Exception
 	this(HRESULT hr, string fn = __FILE__, size_t ln = __LINE__)
 	{
 		error = hr;
-		super(format("error occured during COM call (0x%x)", hr), fn, ln);
+		super(format("error occured during COM call (0x%X)", hr), fn, ln);
 	}
 }
 
@@ -33,7 +33,7 @@ struct CoReference(T : IUnknown)
 {
 	private:
 	T CoReference_object = null;
-	
+
 	public:
 	T CoReference_get() @property
 	{
@@ -51,7 +51,7 @@ struct CoReference(T : IUnknown)
 			HRESULT hr = CoInitializeEx(null, COINIT_MULTITHREADED);
 			if(hr < 0 && hr != RPC_E_CHANGED_MODE)
 				throw new COMException(hr);
-		
+
 			shouldUninitialize = hr != RPC_E_CHANGED_MODE;
 		}
 

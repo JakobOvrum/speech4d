@@ -53,7 +53,7 @@ struct Synthesizer
 	{
 		speakz(toUTFz!(const(wchar)*)(text));
 	}
-	
+
 	void speakz(in wchar* text)
 	{
 		coEnforce(synth.Speak(text, SPF_DEFAULT, null));

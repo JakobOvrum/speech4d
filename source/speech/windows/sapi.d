@@ -221,7 +221,7 @@ enum byte SP_NORMAL_CONFIDENCE = 0;
 enum byte SP_HIGH_CONFIDENCE = +1;
 
 // CFG default weight
-// MIDL does not support floating point in the RHS.  
+// MIDL does not support floating point in the RHS.
 // Thus, using 1.0 instead of 1 resulted in unexpected behavior in the resulting type library.
 enum float DEFAULT_WEIGHT = 1;
 
@@ -255,17 +255,17 @@ interface ISpNotifySource : IUnknown
 {
     HRESULT SetNotifySink(ISpNotifySink pNotifySink);
     HRESULT SetNotifyWindowMessage(
-										   HWND hWnd, 
-										   UINT Msg, 
-										   WPARAM wParam, 
+										   HWND hWnd,
+										   UINT Msg,
+										   WPARAM wParam,
 										   LPARAM lParam);
     HRESULT SetNotifyCallbackFunction(
-											  SPNOTIFYCALLBACK pfnCallback, 
-											  WPARAM wParam, 
+											  SPNOTIFYCALLBACK pfnCallback,
+											  WPARAM wParam,
 											  LPARAM lParam);
     HRESULT SetNotifyCallbackInterface(
-											   ISpNotifyCallback pSpCallback, 
-											   WPARAM wParam, 
+											   ISpNotifyCallback pSpCallback,
+											   WPARAM wParam,
 											   LPARAM lParam);
     HRESULT SetNotifyWin32Event();
     HRESULT WaitForNotifyEvent(DWORD dwMilliseconds);
@@ -309,8 +309,8 @@ interface ISpObjectTokenCategory : ISpDataKey
     HRESULT GetDataKey(SPDATAKEYLOCATION spdkl, ISpDataKey * ppDataKey);
 
     HRESULT EnumTokens(
-					   LPCWSTR pzsReqAttribs, 
-					   LPCWSTR pszOptAttribs, 
+					   LPCWSTR pzsReqAttribs,
+					   LPCWSTR pszOptAttribs,
 					   IEnumSpObjectTokens* ppEnum);
 
     HRESULT SetDefaultTokenId(LPCWSTR pszTokenId);
@@ -325,9 +325,9 @@ interface ISpObjectToken : ISpDataKey
     HRESULT GetCategory(ISpObjectTokenCategory * ppTokenCategory);
 
     HRESULT CreateInstance(
-						   IUnknown pUnkOuter, 
+						   IUnknown pUnkOuter,
 						   DWORD dwClsContext,
-						   REFIID riid, 
+						   REFIID riid,
 						   void ** ppvObject);
 
     HRESULT GetStorageFileName(
@@ -357,15 +357,15 @@ interface ISpObjectToken : ISpDataKey
 							  ULONG cbExtraData,
 							  IUnknown punkObject);
     HRESULT MatchesAttributes(
-							  LPCWSTR pszAttributes, 
+							  LPCWSTR pszAttributes,
 							  BOOL *pfMatches);
 };
 
 interface ISpObjectTokenInit : ISpObjectToken
 {
     HRESULT InitFromDataKey(
-							LPCWSTR pszCategoryId, 
-							LPCWSTR pszTokenId, 
+							LPCWSTR pszCategoryId,
+							LPCWSTR pszTokenId,
 							ISpDataKey pDataKey);
 };
 
@@ -430,7 +430,7 @@ enum
 	SPEI_PROPERTY_STRING_CHANGE= 42,  // LPARAM pointer to buffer.  Two concatinated null terminated strings.
 	SPEI_FALSE_RECOGNITION   = 43,  // apparent speech with no valid recognition
 	SPEI_INTERFERENCE        = 44,  // LPARAM is any combination of SPINTERFERENCE flags
-	SPEI_REQUEST_UI          = 45,  // LPARAM is string.  
+	SPEI_REQUEST_UI          = 45,  // LPARAM is string.
 	SPEI_RECO_STATE_CHANGE   = 46,  // wParam contains new reco state
 	SPEI_ADAPTATION          = 47,  // we are now ready to accept the adaptation buffer
 	SPEI_START_SR_STREAM     = 48,
@@ -458,7 +458,7 @@ enum
 	/+
 	#if _SAPI_BUILD_VER >= 0x053
 	SPEI_MAX_SR              = 55,  // Value in SAPI 5.3
-	#else 
+	#else
 	SPEI_MAX_SR              = 52,  // Value in SAPI 5.1
 	#endif // _SAPI_BUILD_VER >= 0x053
 	+/
@@ -624,11 +624,11 @@ interface ISpEventSource : ISpNotifySource
     // It is neccessary to use the SPFEI macro to convert the
     // SPEVENTENUM values into ULONGULONG values.
     HRESULT SetInterest(
-						ULONGLONG ullEventInterest, 
+						ULONGLONG ullEventInterest,
 						ULONGLONG ullQueuedInterest);
 
     HRESULT GetEvents(
-					  ULONG ulCount, 
+					  ULONG ulCount,
 					  SPEVENT* pEventArray,
 					  ULONG *pulFetched);
 
@@ -645,7 +645,7 @@ enum
 {
     SPFM_OPEN_READONLY,     // Open existing file, read-only
 	SPFM_OPEN_READWRITE,    // (Not supported for wav files) Open existing file, read-write
-	SPFM_CREATE,            // (Not supported for wav files) Open file if exists, else create if does not exist (opens read-write)    
+	SPFM_CREATE,            // (Not supported for wav files) Open file if exists, else create if does not exist (opens read-write)
 	SPFM_CREATE_ALWAYS,     // Create file even if file exists.  Destroys old file.
 	SPFM_NUM_MODES          // Used for limit checking
 }
@@ -657,8 +657,8 @@ interface ISpStream : ISpStreamFormat
     HRESULT SetBaseStream(IStream pStream, REFGUID rguidFormat, const WAVEFORMATEX * pWaveFormatEx);
     HRESULT GetBaseStream(IStream * ppStream);
     HRESULT BindToFile(LPCWSTR pszFileName, SPFILEMODE eMode,
-                       const GUID * pFormatId, 
-                       const WAVEFORMATEX * pWaveFormatEx, 
+                       const GUID * pFormatId,
+                       const WAVEFORMATEX * pWaveFormatEx,
                        ULONGLONG ullEventInterest);
     HRESULT Close();
 }
@@ -716,7 +716,7 @@ enum
 }
 alias typeof(SPRS_DONE) SPRUNSTATE;
 
-enum 
+enum
 {
 	SPMIN_VOLUME =   0,
 	SPMAX_VOLUME = 100,
@@ -763,10 +763,10 @@ enum
 
 	//--- Normalizer flags
 	SPF_NLP_SPEAK_PUNC	 = (1L << 6),	 // The normalization processor should speak the punctuation
-	
+
 	/+ TODO
 	#if _SAPI_BUILD_VER >= 0x053
-	//--- TTS Format 
+	//--- TTS Format
 	SPF_PARSE_SAPI		 = (1L << 7),	 // Force XML parsing as MS SAPI
 	SPF_PARSE_SSML		 = (1L << 8),	 // Force XML parsing as W3C SSML
 	SPF_PARSE_AUTODETECT   = 0,			 // No set flag in bits 7 or 8 results in autodetection
@@ -775,7 +775,7 @@ enum
 
 	//--- Masks
 	SPF_NLP_MASK		   = (SPF_NLP_SPEAK_PUNC),
-	
+
 	/+ TODO
 	#if _SAPI_BUILD_VER >= 0x053
 	SPF_PARSE_MASK		 = (SPF_PARSE_SAPI|SPF_PARSE_SSML),
@@ -802,16 +802,16 @@ interface ISpVoice : ISpEventSource
 	HRESULT GetVoice( ISpObjectToken *ppToken);
 
 	HRESULT Speak(
-				  LPCWSTR pwcs, 
-				  DWORD dwFlags, 
+				  LPCWSTR pwcs,
+				  DWORD dwFlags,
 				  ULONG * pulStreamNumber);
 	HRESULT SpeakStream(
 						IStream pStream,  // If not ISpStreamFormat supported then SPDFID_Text assumed
-						DWORD dwFlags, 
+						DWORD dwFlags,
 						ULONG * pulStreamNumber);
 
 	HRESULT GetStatus(
-					  SPVOICESTATUS *pStatus, 
+					  SPVOICESTATUS *pStatus,
 					  LPWSTR * ppszLastBookmark);
 
 	HRESULT Skip( LPCWSTR pItemType, long lNumItems, ULONG* pulNumSkipped );
@@ -863,7 +863,7 @@ enum
 		/+ TODO
 		#if _SAPI_BUILD_VER >= 0x053
 		,
-		SPPS_Noncontent    = 0x6000,     
+		SPPS_Noncontent    = 0x6000,
 		SPPS_LMA           = 0x7000,    // Words learned through LMA
 		SPPS_SuppressWord  = 0xF000,    // Special flag to indicate this word should not be recognized
 		#endif // _SAPI_BUILD_VER >= 0x053
