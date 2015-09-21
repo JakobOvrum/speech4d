@@ -1,10 +1,7 @@
 module speech.windows.comref;
 
-import std.algorithm : swap;
-
-import std.c.windows.com;
+import core.sys.windows.com;
 import core.sys.windows.windows;
-import std.string : format;
 
 class COMException : Exception
 {
@@ -12,6 +9,7 @@ class COMException : Exception
 
 	this(HRESULT hr, string fn = __FILE__, size_t ln = __LINE__)
 	{
+		import std.string : format;
 		error = hr;
 		super(format("error occured during COM call (0x%X)", hr), fn, ln);
 	}
@@ -73,6 +71,7 @@ struct CoReference(T : IUnknown)
 
 	void opAssign(typeof(this) rhs)
 	{
+		import std.algorithm.mutation : swap;
 		swap(CoReference_object, rhs.CoReference_object);
 	}
 

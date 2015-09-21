@@ -4,12 +4,18 @@ import std.utf;
 import std.conv;
 
 import core.sys.windows.windows;
-import core.stdc.wchar_;
-import std.c.windows.com;
+import core.sys.windows.com;
 
 import speech.windows.sapi;
 import speech.windows.sphelper;
 import speech.windows.comref;
+import speech.windows.localeinfo;
+
+private inout(wchar)[] fromStringz(inout(wchar)* cStr) @system /* pure */
+{
+	import core.stdc.wchar_ : wcslen;
+	return cStr[0 .. wcslen(cStr)];
+}
 
 version(speech4d_manualcominit) {}
 else
@@ -123,7 +129,27 @@ struct Voice
 	{
 		LPWSTR name;
 		coEnforce(cpVoiceToken.GetStringValue(null, &name));
-		return to!string(name[0 .. wcslen(name)]);
+		return to!string(fromStringz(name));
+	}
+
+	string language() @property
+	{
+		import std.algorithm.searching : findSplit;
+
+		ISpDataKey attributes;
+		coEnforce(cpVoiceToken.OpenKey("Attributes", &attributes));
+
+		LPWSTR localeSpec;
+		coEnforce(attributes.GetStringValue("Language", &localeSpec));
+		auto split = fromStringz(localeSpec).findSplit(";");
+		LCID locale = to!LCID(split[0], 16);
+
+		wchar[16] langCodeBuffer;
+		int nchars = GetLocaleInfoW(locale, LOCALE_SISO639LANGNAME, null, 0);
+		assert(nchars < langCodeBuffer.length);
+		GetLocaleInfoW(locale, LOCALE_SISO639LANGNAME, langCodeBuffer.ptr, nchars);
+
+		return to!string(langCodeBuffer[0 .. nchars - 1]); // Don't include null terminator
 	}
 }
 

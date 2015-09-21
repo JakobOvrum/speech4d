@@ -2,7 +2,7 @@ module speech.windows.sphelper;
 
 import speech.windows.sapi;
 import core.sys.windows.windows;
-import std.c.windows.com;
+import core.sys.windows.com;
 
 HRESULT SpEnumTokens(const WCHAR* pszCategoryId, const WCHAR* pszReqAttribs, const WCHAR* pszOptAttribs, IEnumSpObjectTokens* ppEnum)
 {

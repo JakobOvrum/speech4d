@@ -1,7 +1,7 @@
 module speech.windows.ObjIdl;
 
 import core.sys.windows.windows;
-import std.c.windows.com;
+import core.sys.windows.com;
 
 /****************************************************************************
 *  Structured Storage Interfaces
