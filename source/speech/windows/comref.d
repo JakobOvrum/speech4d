@@ -2,6 +2,7 @@ module speech.windows.comref;
 
 import core.sys.windows.com;
 import core.sys.windows.windows;
+import std.windows.syserror;
 
 class COMException : Exception
 {

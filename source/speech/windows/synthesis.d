@@ -91,7 +91,7 @@ struct Synthesizer
 	{
 		ISpObjectToken voiceToken;
 		coEnforce(synth.GetVoice(&voiceToken));
-		return Voice(voiceToken);
+		return Voice(CoReference!ISpObjectToken(voiceToken));
 	}
 
 	void volume(uint newVolume) @property
@@ -122,8 +122,8 @@ struct Synthesizer
 struct Voice
 {
 	//BUG, TODO: causes weird access violation, workaround leaks
-	private ISpObjectToken cpVoiceToken;
-	//private CoReference!ISpObjectToken cpVoiceToken;
+	//private ISpObjectToken cpVoiceToken;
+	private CoReference!ISpObjectToken cpVoiceToken;
 
 	string name() @property
 	{
@@ -144,6 +144,7 @@ struct Voice
 		auto split = fromStringz(localeSpec).findSplit(";");
 		LCID locale = to!LCID(split[0], 16);
 
+		// Note: use LOCALE_SISO639LANGNAME2 for ISO-639-2 three-letter codes
 		wchar[16] langCodeBuffer;
 		int nchars = GetLocaleInfoW(locale, LOCALE_SISO639LANGNAME, null, 0);
 		assert(nchars < langCodeBuffer.length);
