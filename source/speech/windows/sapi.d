@@ -764,14 +764,12 @@ enum
 	//--- Normalizer flags
 	SPF_NLP_SPEAK_PUNC	 = (1L << 6),	 // The normalization processor should speak the punctuation
 
-	/+ TODO
-	#if _SAPI_BUILD_VER >= 0x053
+	//#if _SAPI_BUILD_VER >= 0x053
 	//--- TTS Format
 	SPF_PARSE_SAPI		 = (1L << 7),	 // Force XML parsing as MS SAPI
 	SPF_PARSE_SSML		 = (1L << 8),	 // Force XML parsing as W3C SSML
 	SPF_PARSE_AUTODETECT   = 0,			 // No set flag in bits 7 or 8 results in autodetection
-	#endif // _SAPI_BUILD_VER >= 0x053
-	+/
+	//#endif // _SAPI_BUILD_VER >= 0x053
 
 	//--- Masks
 	SPF_NLP_MASK		   = (SPF_NLP_SPEAK_PUNC),

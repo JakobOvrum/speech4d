@@ -2,19 +2,27 @@ module speech.buffer;
 
 import std.range.primitives;
 import std.traits;
+import std.typecons : Flag;
+
+alias NullTerminate = Flag!"nullTerminate";
 
 // TODO: try not to split SSML tags
 // TODO: optimize for UTF-8/UTF-16 strings and ranges of char/wchar
 // TODO: handle space / punctuation separator as grapheme cluster?
 // TODO: prioritize punctuation over whitespace?
-auto bufferSpeech(Range, C)(Range text, C[] buffer)
+auto bufferSpeech(NullTerminate nullTerminate = NullTerminate.no, Range, C)(Range text, C[] buffer)
 	if(isInputRange!Range && isSomeChar!(ElementType!Range) &&
 		(is(C == char) || is(C == wchar)))
 {
 	import std.uni : unicode;
 	import std.utf : encode;
 
-	assert(buffer.length > 4 / C.sizeof);
+	static if(nullTerminate == NullTerminate.yes)
+		enum reservedEndSpaceSize = (4 / C.sizeof) + 1;
+	else
+		enum reservedEndSpaceSize = 4 / C.sizeof;
+
+	assert(buffer.length > reservedEndSpaceSize);
 
 	static if(is(Unqual!(ElementType!Range) == dchar))
 		alias r = text;
@@ -58,7 +66,7 @@ auto bufferSpeech(Range, C)(Range text, C[] buffer)
 			if(postSeparatorIndex != buffer.length) // include leftovers from previous iteration
 			{
 				immutable leftoverLength = usedLength - postSeparatorIndex;
-				memmove(buffer.ptr, buffer.ptr + postSeparatorIndex, (leftoverLength) * C.sizeof);
+				memmove(buffer.ptr, buffer.ptr + postSeparatorIndex, leftoverLength * C.sizeof);
 				usedLength = leftoverLength;
 				postSeparatorIndex = buffer.length;
 			}
@@ -84,11 +92,20 @@ auto bufferSpeech(Range, C)(Range text, C[] buffer)
 
 				range.popFront();
 			}
-			while(!range.empty && buffer.length - usedLength >= 4 / C.sizeof);
+			while(!range.empty && buffer.length - usedLength >= reservedEndSpaceSize);
 
 			if(range.empty)
 			{
+				static if(nullTerminate == NullTerminate.yes)
+					buffer[usedLength] = '\0';
 				postSeparatorIndex = buffer.length;
+			}
+			else static if(nullTerminate == NullTerminate.yes)
+			{
+				// Move leftovers one to the right to make room for terminator
+				immutable leftoverLength = usedLength - postSeparatorIndex;
+				memmove(buffer.ptr + postSeparatorIndex + C.sizeof, buffer.ptr + postSeparatorIndex, leftoverLength * C.sizeof);
+				buffer[postSeparatorIndex++] = '\0';
 			}
 		}
 	}

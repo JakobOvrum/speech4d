@@ -1,7 +1,9 @@
 module speech.windows.synthesis;
 
-import std.utf;
 import std.conv;
+import std.traits;
+import std.range.primitives;
+import std.utf;
 
 import core.sys.windows.windows;
 import core.sys.windows.com;
@@ -50,19 +52,28 @@ struct Synthesizer
 		return Synthesizer(CoReference!ISpVoice(&CLSID_SpVoice, &IID_ISpVoice));
 	}
 
-	void speak(in char[] text)
+	void speak(Range)(Range range)
+		if(isInputRange!Range && isSomeChar!(ElementType!Range))
 	{
-		speakz(toUTFz!(const(wchar)*)(text));
-	}
+		import speech.buffer;
 
-	void speak(in wchar[] text)
-	{
-		speakz(toUTFz!(const(wchar)*)(text));
-	}
+		wchar[512] buffer;
 
-	void speakz(in wchar* text)
-	{
-		coEnforce(synth.Speak(text, SPF_DEFAULT, null));
+		version(none) static if(is(Range : const(wchar)[]))
+		{
+			if(range.length < 512)
+			{
+				buffer[0 .. range.length] = range[];
+				buffer[range.length] = '\0';
+				coEnforce(synth.Speak(buffer.ptr, SPF_DEFAULT, null));
+				return;
+			}
+		}
+
+		foreach(chunk; range.bufferSpeech!(NullTerminate.yes)(buffer[]))
+		{
+			coEnforce(synth.Speak(chunk.ptr, SPF_DEFAULT, null));
+		}
 	}
 
 	alias speak put;
